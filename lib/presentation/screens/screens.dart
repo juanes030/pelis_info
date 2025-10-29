@@ -1,0 +1,1 @@
+export 'package:pelis_info/presentation/screens/movies/home_screen.dart';
