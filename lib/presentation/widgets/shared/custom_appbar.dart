@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:pelis_info/domain/entities/movie.dart';
+import 'package:pelis_info/presentation/delegates/search_movie_delegate.dart';
+import 'package:pelis_info/presentation/providers/providers.dart';
 
-class CustomAppbar extends StatelessWidget {
+class CustomAppbar extends ConsumerWidget {
   const CustomAppbar({super.key});
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final colors = Theme.of(context).colorScheme;
     final titleStyle = Theme.of(context).textTheme.titleMedium;
     return SafeArea(
@@ -19,7 +24,19 @@ class CustomAppbar extends StatelessWidget {
               Text('PelisInfo', style: titleStyle),
               Spacer(),
               IconButton(
-                onPressed: (){}, 
+                onPressed: (){
+                  final movieRepository = ref.read(movieRepositoryProvider);
+                  showSearch<Movie?>(
+                    context: context, 
+                    delegate: SearchMovieDelegate(
+                      searchMovies: movieRepository.searchMovies
+                    )
+                  ).then((movie) {
+                    if(movie == null) return;
+                    if (!context.mounted) return;
+                    context.push('/movie/${movie.id}');
+                  });
+                }, 
                 icon: Icon(Icons.search)
               )
             ],
