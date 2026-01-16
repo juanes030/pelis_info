@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pelis_info/presentation/providers/providers.dart';
 import 'package:pelis_info/presentation/widgets/widgets.dart';
@@ -25,6 +26,7 @@ class HomeViewState extends ConsumerState<HomeView> {
   Widget build(BuildContext context) {
     final initialLoading = ref.watch(initialLoadingProvider);
     if(initialLoading) return FullScreenLoader();
+    FlutterNativeSplash.remove();
      final nowPlayingmovies = ref.watch(nowPlayingMoviesProvider);
     final slideShowMovies = ref.watch(moviesSlideshowProvider);
     final popularMovies = ref.watch(popularMoviesProvider);

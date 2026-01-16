@@ -6,3 +6,6 @@ export 'package:pelis_info/presentation/providers/movies/movie_info_provider.dar
 export 'package:pelis_info/presentation/providers/actors/actors_by_movie_provider.dart';
 export 'package:pelis_info/presentation/providers/actors/actors_repository_provider.dart';
 export 'package:pelis_info/presentation/providers/search/search_movies_provider.dart';
+export 'package:pelis_info/presentation/providers/storage/favorite_movies_provider.dart';
+export 'package:pelis_info/presentation/providers/storage/local_storage_provider.dart';
+export 'package:pelis_info/presentation/providers/storage/is_favorite_movie_provider.dart';

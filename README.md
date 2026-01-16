@@ -33,3 +33,13 @@ La app busca ofrecer una experiencia moderna, fluida y pensada para los amantes 
 Para verificar las versiones instaladas:
 ```bash
 flutter --version
+
+# Prod
+cambiar nombre de la aplicacion
+dart run change_app_package_name:main com.juanesalvarezruiz.pelisinfo
+
+cambiar icono de la aplicacion
+dart run flutter_launcher_icons
+
+cambiar el splash screen
+dart run flutter_native_splash:create
