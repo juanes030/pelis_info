@@ -43,3 +43,6 @@ dart run flutter_launcher_icons
 
 cambiar el splash screen
 dart run flutter_native_splash:create
+
+generar appbundle
+flutter build appbundle
