@@ -210,7 +210,7 @@ class _CustomSliverAppBar extends ConsumerWidget {
             data: (isFavorite) => isFavorite
                 ? const Icon(Icons.favorite, color: Colors.red)
                 : const Icon(Icons.favorite_border_outlined),
-            error: (_, __) =>
+            error: (_, _) =>
                 throw Exception('Error al cargar el estado de favoritos'),
             loading: () => const CircularProgressIndicator(strokeWidth: 2),
           ),
