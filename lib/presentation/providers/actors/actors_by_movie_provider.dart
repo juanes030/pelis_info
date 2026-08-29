@@ -1,22 +1,16 @@
-import 'package:flutter_riverpod/legacy.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pelis_info/domain/entities/actor.dart';
 import 'package:pelis_info/presentation/providers/providers.dart';
 
-final actorsByMovieProvider = StateNotifierProvider<ActorsByMovieNotifier, Map<String, List<Actor>>>((ref) {
-  final actorRepository = ref.watch(actorsRepositoryProvider);
-  return ActorsByMovieNotifier(getActors: actorRepository.getActorsByMovie);
-});
+final actorsByMovieProvider = NotifierProvider<ActorsByMovieNotifier, Map<String, List<Actor>>>(ActorsByMovieNotifier.new);
 
-typedef GetActorsCallback = Future<List<Actor>>Function(String movieId);
-
-class ActorsByMovieNotifier extends StateNotifier<Map<String,List<Actor>>>{
-  final GetActorsCallback getActors;
-
-  ActorsByMovieNotifier({required this.getActors}): super({});
+class ActorsByMovieNotifier extends Notifier<Map<String,List<Actor>>>{
+  @override
+  Map<String, List<Actor>> build() => {};
 
   Future<void> loadActors(String movieId) async {
     if(state[movieId] != null) return;
-    final List<Actor> actors = await getActors(movieId);
+    final List<Actor> actors = await ref.read(actorsRepositoryProvider).getActorsByMovie(movieId);
     state = {...state, movieId: actors};
   }
 }

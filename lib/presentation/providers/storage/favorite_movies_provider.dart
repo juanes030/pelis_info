@@ -1,20 +1,17 @@
-import 'package:flutter_riverpod/legacy.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pelis_info/domain/entities/movie.dart';
-import 'package:pelis_info/domain/repositories/local_storage_repository.dart';
 import 'package:pelis_info/presentation/providers/providers.dart';
 
-final favoriteMoviesProvider = StateNotifierProvider((ref) {
-  final localStorageRepository = ref.watch(localStorageRepositoryProvider);
-  return StorageMoviesNotifier(localStorageRepository: localStorageRepository);
-});
+final favoriteMoviesProvider = NotifierProvider<StorageMoviesNotifier, Map<int, Movie>>(StorageMoviesNotifier.new);
 
-class StorageMoviesNotifier extends StateNotifier<Map<int, Movie>>{
+class StorageMoviesNotifier extends Notifier<Map<int, Movie>>{
   int page = 0;
-  final LocalStorageRepository localStorageRepository;
 
-  StorageMoviesNotifier({required this.localStorageRepository}) : super({});
+  @override
+  Map<int, Movie> build() => {};
 
   Future<List<Movie>> loadNextPage() async {
+    final localStorageRepository = ref.read(localStorageRepositoryProvider);
     final movies = await localStorageRepository.loadFavoriteMovies(
       limit: 10,
       offset: page * 10,
@@ -25,7 +22,6 @@ class StorageMoviesNotifier extends StateNotifier<Map<int, Movie>>{
     final tempMovies = <int, Movie>{};
 
     for (final movie in movies) {
-      // state = {...state, movie.id: movie};
       tempMovies[movie.id] = movie;
     }
 
@@ -35,12 +31,12 @@ class StorageMoviesNotifier extends StateNotifier<Map<int, Movie>>{
   }
 
   Future<void> toggleFavoriteMovie(Movie movie) async {
+    final localStorageRepository = ref.read(localStorageRepositoryProvider);
     final isFavorite = await localStorageRepository.isFavoriteMovie(movie.id);
     await localStorageRepository.toggleFavoriteMovie(movie);
 
     if (isFavorite) {
-      state.remove(movie.id);
-      state = {...state};
+      state = Map<int, Movie>.from(state)..remove(movie.id);
       return;
     }
 

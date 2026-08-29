@@ -1,22 +1,16 @@
-import 'package:flutter_riverpod/legacy.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pelis_info/domain/entities/movie.dart';
 import 'package:pelis_info/presentation/providers/providers.dart';
 
-final movieInfoProvider = StateNotifierProvider<MovieMapNotifier, Map<String, Movie>>((ref) {
-  final movieRepository = ref.watch(movieRepositoryProvider);
-  return MovieMapNotifier(getMovie: movieRepository.getMovieById);
-});
+final movieInfoProvider = NotifierProvider<MovieMapNotifier, Map<String, Movie>>(MovieMapNotifier.new);
 
-typedef GetMovieCallback = Future<Movie>Function(String movieId);
-
-class MovieMapNotifier extends StateNotifier<Map<String,Movie>>{
-  final GetMovieCallback getMovie;
-
-  MovieMapNotifier({required this.getMovie}): super({});
+class MovieMapNotifier extends Notifier<Map<String,Movie>>{
+  @override
+  Map<String, Movie> build() => {};
 
   Future<void> loadMovie(String movieId) async {
     if(state[movieId] != null) return;
-    final movie = await getMovie(movieId);
+    final movie = await ref.read(movieRepositoryProvider).getMovieById(movieId);
     state = {...state, movieId: movie};
   }
 }
