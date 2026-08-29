@@ -17,6 +17,7 @@ class MoviesSlidershow extends StatelessWidget {
         viewportFraction: 0.8,
         scale: 0.9,
         autoplay: true,
+        loop: false,
         pagination: SwiperPagination(
           margin: EdgeInsetsGeometry.only(top: 0),
           builder: DotSwiperPaginationBuilder(

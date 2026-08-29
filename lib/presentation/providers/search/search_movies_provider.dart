@@ -5,26 +5,14 @@ import 'package:pelis_info/presentation/providers/providers.dart';
 
 final searchQueryProvider = StateProvider<String>((ref) => '');
 
-final searchMoviesProvider = StateNotifierProvider<SearchedMoviesNotifier, List<Movie>>((ref) {
-  
-  final movieRepository = ref.read(movieRepositoryProvider);
+final searchMoviesProvider = NotifierProvider<SearchedMoviesNotifier, List<Movie>>(SearchedMoviesNotifier.new);
 
-  return SearchedMoviesNotifier(
-    searchMovies: movieRepository.searchMovies, 
-    ref: ref
-  );
-});
-
-typedef SearchMoviesCallback = Future<List<Movie>> Function(String query);
-
-class SearchedMoviesNotifier extends StateNotifier<List<Movie>> {
-  final SearchMoviesCallback searchMovies;
-  final Ref ref;
-
-  SearchedMoviesNotifier({required this.searchMovies, required this.ref}): super([]);
+class SearchedMoviesNotifier extends Notifier<List<Movie>> {
+  @override
+  List<Movie> build() => [];
 
   Future<List<Movie>> searchMoviesByQuery(String query) async{
-    final List<Movie> movies = await searchMovies(query);
+    final List<Movie> movies = await ref.read(movieRepositoryProvider).searchMovies(query);
     ref.read(searchQueryProvider.notifier).update((state) => query);
     state = movies;
     
