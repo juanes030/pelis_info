@@ -10,7 +10,7 @@ class CustomBottonNavigationbar extends StatelessWidget {
     switch(location){
       case '/':
         return 0;
-      case '/categories':
+      case '/explore':
         return 1;
       case '/favorites':
         return 2;
@@ -25,7 +25,7 @@ class CustomBottonNavigationbar extends StatelessWidget {
         context.go('/');
       break;
       case 1:
-        context.go('/categories');
+        context.go('/explore');
       break;
       case 2:
         context.go('/favorites');
@@ -45,8 +45,8 @@ class CustomBottonNavigationbar extends StatelessWidget {
           label: 'Inicio'
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.label_outline),
-          label: 'Categorias'
+          icon: Icon(Icons.explore_outlined),
+          label: 'Explorar'
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.favorite_outline),
