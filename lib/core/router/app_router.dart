@@ -1,6 +1,6 @@
 import 'package:go_router/go_router.dart';
+import 'package:pelis_info/features/explore/presentation/views/explore_view.dart';
 import 'package:pelis_info/features/favorites/presentation/views/favorites_view.dart';
-import 'package:pelis_info/features/home/presentation/views/categories_view.dart';
 import 'package:pelis_info/features/home/presentation/views/home_view.dart';
 import 'package:pelis_info/features/movie_detail/presentation/screens/movie_screen.dart';
 
@@ -21,8 +21,8 @@ final appRouter = GoRouter(
       ],
     ),
     GoRoute(
-      path: '/categories',
-      builder: (context, state) => const CategoriesView(),
+      path: '/explore',
+      builder: (context, state) => const ExploreView(),
     ),
     GoRoute(
       path: '/favorites',
