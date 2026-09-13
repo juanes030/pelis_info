@@ -186,3 +186,10 @@ Para generar el Android App Bundle (`.aab`) de producción con ofuscación y red
 
 ```bash
 flutter build appbundle --release --obfuscate --split-debug-info=build/symbols
+
+## Firebase App Distribution
+
+Para generar un APK de release para distribuir mediante Firebase App Distribution:
+
+```bash
+flutter build apk --release
