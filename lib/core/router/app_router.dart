@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pelis_info/features/explore/presentation/views/explore_view.dart';
 import 'package:pelis_info/features/favorites/presentation/views/favorites_view.dart';
@@ -6,6 +7,9 @@ import 'package:pelis_info/features/movie_detail/presentation/screens/movie_scre
 
 final appRouter = GoRouter(
   initialLocation: '/',
+  observers: [
+    FirebaseAnalyticsObserver(analytics: FirebaseAnalytics.instance),
+  ],
   routes: [
     GoRoute(
       path: '/',
