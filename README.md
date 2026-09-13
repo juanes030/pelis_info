@@ -179,3 +179,10 @@ flutter build ios --simulator
 ```
 
 Actualmente el repositorio no contiene un directorio `test/`, por lo que `flutter test` no encuentra pruebas para ejecutar hasta que se agreguen.
+
+## Build de producción Android
+
+Para generar el Android App Bundle (`.aab`) de producción con ofuscación y reducción de código:
+
+```bash
+flutter build appbundle --release --obfuscate --split-debug-info=build/symbols
