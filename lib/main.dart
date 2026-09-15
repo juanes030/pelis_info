@@ -11,7 +11,7 @@ import 'package:pelis_info/core/theme/app_theme.dart';
 import 'package:pelis_info/firebase_options.dart';
 
 Future<void> main() async {
-  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  final WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
 
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 

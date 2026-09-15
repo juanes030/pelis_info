@@ -193,3 +193,7 @@ Para generar un APK de release para distribuir mediante Firebase App Distributio
 
 ```bash
 flutter build apk --release
+
+firebase appdistribution:distribute build/app/outputs/flutter-apk/app-release.apk \
+  --app 1:514787778368:android:1604f8a158ebbc559364a5 \
+  --groups pelisinfo-testers
