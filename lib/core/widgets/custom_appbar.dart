@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pelis_info/core/delegates/search_movie_delegate.dart';
+import 'package:pelis_info/core/theme/theme_mode_provider.dart';
 import 'package:pelis_info/features/home/domain/entities/movie.dart';
 import 'package:pelis_info/features/home/presentation/providers/home_movies_provider.dart';
 import 'package:pelis_info/features/home/presentation/providers/home_search_provider.dart';
@@ -12,6 +13,7 @@ class CustomAppbar extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final colors = Theme.of(context).colorScheme;
     final titleStyle = Theme.of(context).textTheme.titleMedium;
+    final themeMode = ref.watch(themeModeProvider);
     return SafeArea(
       bottom: false,
       child: Padding(
@@ -43,10 +45,40 @@ class CustomAppbar extends ConsumerWidget {
                 },
                 icon: Icon(Icons.search),
               ),
+              PopupMenuButton<ThemeMode>(
+                icon: Icon(_themeModeIcon(themeMode)),
+                initialValue: themeMode,
+                onSelected: (mode) => ref.read(themeModeProvider.notifier).setThemeMode(mode),
+                itemBuilder: (context) => const [
+                  PopupMenuItem(
+                    value: ThemeMode.light,
+                    child: Text('Tema claro'),
+                  ),
+                  PopupMenuItem(
+                    value: ThemeMode.dark,
+                    child: Text('Tema oscuro'),
+                  ),
+                  PopupMenuItem(
+                    value: ThemeMode.system,
+                    child: Text('Tema del sistema'),
+                  ),
+                ],
+              ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  IconData _themeModeIcon(ThemeMode mode) {
+    switch (mode) {
+      case ThemeMode.light:
+        return Icons.light_mode_outlined;
+      case ThemeMode.dark:
+        return Icons.dark_mode_outlined;
+      case ThemeMode.system:
+        return Icons.brightness_auto_outlined;
+    }
   }
 }

@@ -8,6 +8,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pelis_info/core/router/app_router.dart';
 import 'package:pelis_info/core/theme/app_theme.dart';
+import 'package:pelis_info/core/theme/theme_mode_provider.dart';
 import 'package:pelis_info/firebase_options.dart';
 
 Future<void> main() async {
@@ -30,15 +31,18 @@ Future<void> main() async {
   runApp(const ProviderScope(child: MainApp()));
 }
 
-class MainApp extends StatelessWidget {
+class MainApp extends ConsumerWidget {
   const MainApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final themeMode = ref.watch(themeModeProvider);
     return MaterialApp.router(
       routerConfig: appRouter,
       debugShowCheckedModeBanner: false,
       theme: AppTheme().getTheme(),
+      darkTheme: AppTheme().getDarkTheme(),
+      themeMode: themeMode,
     );
   }
 }
